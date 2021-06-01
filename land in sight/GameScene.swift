@@ -22,6 +22,61 @@ public enum ZPosition: Int {
     case otherNodes
 }
 
+var visitedPoints: [CGPoint] = []
+
+class StopPoint{
+    var challenge: String = ""
+    var consequence: String = ""
+    
+    var position: CGPoint
+    
+    var lineToEnd: [CGPoint]?
+    
+    init(position: CGPoint){
+        self.position = position
+    }
+    
+    //(5, 10)     (12, 13)
+    func getLinePositions(final: CGPoint) -> [CGPoint]{
+        var x = final.x - position.x
+        var y = final.y - position.y
+        
+        var movements: [CGPoint] = []
+        
+        while abs(x) > 0{
+            movements.append(CGPoint(x: (x >= 0 ? 1 : -1), y: 0))
+            x += (x >= 0 ? -1 : 1)
+        }
+        while abs(y) > 0{
+            movements.append(CGPoint(x: 0, y: (y >= 0 ? 1 : -1)))
+            y += (y >= 0 ? -1 : 1)
+        }
+        //[(1,0),(1,0),(1,0),(1,0),(1,0),(1,0),(1,0),(0,1),(0,1),(0,1)]
+        
+        
+        var start = position
+        
+        var positions: [CGPoint] = []
+
+            movements.shuffle()
+            positions = []
+                        
+            for movement in movements{
+                start.x += movement.x
+                start.y += movement.y
+                
+                positions.append(start)
+                if visitedPoints.contains(start){
+                    print("CONFLITOU ALGUMA VEZ NO \(start)")
+                    break
+                }
+                
+            }
+        
+        return positions
+    }
+}
+
 public class GameScene: SKScene, GameDelegate {
 
     var hasMoved: Bool = false
@@ -29,6 +84,12 @@ public class GameScene: SKScene, GameDelegate {
     var trunks: [SKSpriteNode] = []
     
     //var landBackground:SKTileMapNode!
+    
+    var lineStraightTexture = SKTexture(imageNamed: "line_straight")
+    var lineCornerTexture = SKTexture(imageNamed: "line_corner")
+    var stopPointTexture = SKTexture(imageNamed: "stop_point")
+    var stopPointCornerTexture = SKTexture(imageNamed: "stop_point_corner")
+    
     
     public func updateGame() {
         
@@ -52,69 +113,52 @@ public class GameScene: SKScene, GameDelegate {
 
 
         print(landBackground.mapSize)
-        landBackground.setScale(1/75)
+        //landBackground.setScale(1/75)
 
+        //x -31 31 y -15 15
+        let points = [StopPoint(position: CGPoint(x: -20, y: 10)),StopPoint(position: CGPoint(x: -10, y: -10)), StopPoint(position: CGPoint(x: 0, y: 5)), StopPoint(position: CGPoint(x: 20, y: 10))]
         
-//        let map = SKNode()
-//        addChild(map)
-//        map.xScale = 1/75
-//        map.yScale = 1/75
-//        let tileSet = SKTileSet(named: "Tile Set")!
-//        let tileSize = CGSize(width: 1024, height: 1024)
-//        let columns = 64
-//        let rows = 32
-//
-//        let deepWaterTiles = tileSet.tileGroups.first { $0.name == "Deep Water" }
-//        let shallowWaterTiles = tileSet.tileGroups.first { $0.name == "Shallow Water"}
-//        let sandTiles = tileSet.tileGroups.first { $0.name == "Sand"}
-//
-//        let bottomLayer = SKTileMapNode(tileSet: tileSet, columns: columns, rows: rows, tileSize: tileSize)
-//        bottomLayer.fill(with: shallowWaterTiles)
-//        map.addChild(bottomLayer)
-//
-//        // create the noise map
-//        let noiseMap = makeNoiseMap(columns: columns, rows: rows)
-//
-//        // create our grass/water layer
-//        let topLayer = SKTileMapNode(tileSet: tileSet, columns: columns, rows: rows, tileSize: tileSize)
-//
-//        // make SpriteKit do the work of placing specific tiles
-//        topLayer.enableAutomapping = true
-//
-//        // add the grass/water layer to our main map node
-//        map.addChild(topLayer)
-//
-//        for column in 0 ..< columns {
-//            for row in 0 ..< rows {
-//                let location = vector2(Int32(row), Int32(column))
-//                let terrainHeight = noiseMap.value(at: location)
-//                if row % 10 == 0{
-//
-////                    let coconut = SKSpriteNode(imageNamed: "coconut_tree")
-////                    coconut.setScale(1/75)
-////                    coconut.position.x += CGFloat(location.x)
-////                    addChild(coconut)
-//                }
-//                if terrainHeight < 0 {
-//                    topLayer.setTileGroup(sandTiles, forColumn: column, row: row)
-//                } else {
-//                    topLayer.setTileGroup(deepWaterTiles, forColumn: column, row: row)
-//                }
-//            }
-//        }
+        var linesPositions: [(CGPoint, Bool)] = []
+        linesPositions.append((points[0].position, true))
+        for i in 0..<points.count-1{
+            
+            let lp = points[i].getLinePositions(final: points[i+1].position)
+            points[i].lineToEnd = lp
+            
+            linesPositions.append(contentsOf: lp.dropLast().map{($0, false)})
+            linesPositions.append((points[i].position, true))
+        }
+        
+        
+        printMap(positions: linesPositions)
+        
+        
+        let camera = SKCameraNode()
+        camera.position = CGPoint(x: frame.midX, y: frame.midY)
+        camera.setScale(77)
+        self.camera = camera
+        self.addChild(camera)
         
     }
-    func makeNoiseMap(columns: Int, rows: Int) -> GKNoiseMap {
-        let source = GKPerlinNoiseSource()
-        source.persistence = 0.9
-
-        let noise = GKNoise(source)
-        let size = vector2(1.0, 1.0)
-        let origin = vector2(0.0, 0.0)
-        let sampleCount = vector2(Int32(columns), Int32(rows))
-
-        return GKNoiseMap(noise, size: size, origin: origin, sampleCount: sampleCount, seamless: true)
+    
+    func printMap(positions: [(CGPoint, Bool)]){
+        if positions.isEmpty{
+            return
+        }
+        let position = positions.first!
+        
+        let rect = SKShapeNode(rect: CGRect(x: frame.midX , y: frame.midY, width: 1024, height: 1024))
+        rect.fillColor = position.1 ? .green : .black
+        
+        
+        rect.position = CGPoint(x:position.0.x * 1024, y: position.0.y * 1024)
+        print(position.0)
+        //rect.setScale(1/75)
+        self.addChild(rect)
+        
+        printMap(positions: [(CGPoint, Bool)](positions.dropFirst()))
     }
+    
 }
 
 
