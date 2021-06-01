@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28531EEE266655E800512F76 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28531EED266655E700512F76 /* Player.swift */; };
 		352D82982664FFC30001357F /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 352D82972664FFC30001357F /* TileSet.sks */; };
 		352D829A2665058B0001357F /* MyScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 352D82992665058B0001357F /* MyScene.sks */; };
 		35892C0E266517E10096A4D3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35892C0D266517E00096A4D3 /* GameScene.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28531EED266655E700512F76 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		352D82972664FFC30001357F /* TileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSet.sks; sourceTree = "<group>"; };
 		352D82992665058B0001357F /* MyScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyScene.sks; sourceTree = "<group>"; };
 		35892C0D266517E00096A4D3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -41,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28531EEC266655AA00512F76 /* Charater */ = {
+			isa = PBXGroup;
+			children = (
+				28531EED266655E700512F76 /* Player.swift */,
+			);
+			path = Charater;
+			sourceTree = "<group>";
+		};
 		3595B00A265E8ADE00FBC6A8 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 		3595B015265E8ADE00FBC6A8 /* land in sight */ = {
 			isa = PBXGroup;
 			children = (
+				28531EEC266655AA00512F76 /* Charater */,
 				3595B016265E8ADE00FBC6A8 /* land_in_sightApp.swift */,
 				3595B018265E8ADE00FBC6A8 /* StartGameView.swift */,
 				35892C0D266517E00096A4D3 /* GameScene.swift */,
@@ -153,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28531EEE266655E800512F76 /* Player.swift in Sources */,
 				35892C0E266517E10096A4D3 /* GameScene.swift in Sources */,
 				3595B019265E8ADE00FBC6A8 /* StartGameView.swift in Sources */,
 				3595B017265E8ADE00FBC6A8 /* land_in_sightApp.swift in Sources */,
@@ -285,7 +297,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"land in sight/Preview Content\"";
-				DEVELOPMENT_TEAM = P63952MS7L;
+				DEVELOPMENT_TEAM = UM7BRLPWKH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "land in sight/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -307,7 +319,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"land in sight/Preview Content\"";
-				DEVELOPMENT_TEAM = P63952MS7L;
+				DEVELOPMENT_TEAM = UM7BRLPWKH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "land in sight/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
