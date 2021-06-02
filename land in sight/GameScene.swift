@@ -96,14 +96,28 @@ public class GameScene: SKScene, GameDelegate {
         
         reset()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-            self.movePlayer(0, houses: 10)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            self.startPlayerMovement(index: 0, houses: 5)
         })
         
+    }
+    
+    func startPlayerMovement(index:Int,houses:Int){
+        let zoomIn = SKAction.scale(by: 0.5, duration: 1)
+        let moveCamera = SKAction.move(to: self.players[index].position, duration: 0.5)
+        self.camera?.run(moveCamera)
+        self.camera?.run(zoomIn,completion: {
+            self.movePlayer(index, houses: houses)
+        })
     }
     var flagIsInMovement: Bool = false
     func movePlayer(_ index: Int, houses: Int){
         if houses == 0{
+            let zoomOut = SKAction.scale(by: 1.4, duration: 1)
+            self.camera?.run(zoomOut)
+            let moveCenter = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 1.5)
+            self.camera?.run(zoomOut)
+            self.camera?.run(moveCenter)
             flagIsInMovement = false
             return
         }
@@ -129,16 +143,17 @@ public class GameScene: SKScene, GameDelegate {
         let nextPosition = paths[old+1].position
         let action = SKAction.move(to: nextPosition, duration: 0.5)
         players[index].run(action, completion: {
+            let moveCamera = SKAction.move(to: self.players[
+                                            index].position, duration: 0.5)
+            self.camera?.run(moveCamera)
             self.moveLine(index: index, old: old+1, next: next, houses: houses)
         })
-        
-        
         
     }
     
     func reset(){
         for i in 0..<players.count{
-            players[i].position = paths[0].position
+            players[i].position = paths[2].position
             players[i].position.x += CGFloat(i*squareWidth)*0.5
             players[i].position.y -= CGFloat(i*100)
             
