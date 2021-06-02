@@ -55,7 +55,6 @@ public class GameScene: SKScene, GameDelegate {
         self.addChild(camera)
         self.addChild(dice)
         createPlayers(number: 2)
-        dice.initDice()
     }
     
     func createPlayers(number:Int){

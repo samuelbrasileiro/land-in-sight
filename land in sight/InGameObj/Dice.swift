@@ -12,10 +12,8 @@ class Dice: SKSpriteNode{
     
     func initDice(){
         let setTexture = SKAction.setTexture(SKTexture(imageNamed: "Dice \(Int.random(in: 1...6))"), resize: true)
-        self.position = CGPoint(x: 0, y: 0)
-        self.run(setTexture, completion: {
-            self.rollDice()
-        })
+        self.position = CGPoint(x: 2048,y: -5*2048)
+        self.run(setTexture, completion: {self.rollDice()})
     }
     
     func rollDice(){
