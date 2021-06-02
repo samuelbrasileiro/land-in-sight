@@ -9,12 +9,15 @@ import Foundation
 import SpriteKit
 
 class Player:SKSpriteNode{
-    
+    var score = 0
     func playerInit(assetName:String, origin:CGPoint){
         let setTexture = SKAction.setTexture(SKTexture(imageNamed: assetName), resize: true)
         self.position = origin
+        self.setScale(0.7)
         self.run(setTexture)
     }
+    
+    
     
     func movePlayer(path:[CGPoint]?){
         var actionSeqArr:[SKAction] = []
