@@ -39,9 +39,11 @@ class StopPoint{
 public class GameScene: SKScene, GameDelegate {
 
     var hasMoved: Bool = false
-    
+    var playersArr:[Player] = []
+    let dice = Dice()
     var trunks: [SKSpriteNode] = []
-    
+    let squareWidth = 2048
+    var turn:Int = 0
     //var landBackground:SKTileMapNode!
     
     var lineStraightTexture = SKTexture(imageNamed: "line_straight")
@@ -81,8 +83,20 @@ public class GameScene: SKScene, GameDelegate {
         camera.setScale(77)
         self.camera = camera
         self.addChild(camera)
+        createPlayers(number: 2)
         
     }
+    
+    func createPlayers(number:Int){
+            let points:[CGPoint] = [CGPoint(x: -13*squareWidth, y: -7*squareWidth), CGPoint(x: -12*squareWidth, y: -7*squareWidth)]
+            for x in 0..<number{
+                let player = Player()
+                player.playerInit(assetName: "pirata \(x)", origin: points[x])
+                playersArr.append(player)
+                self.addChild(player)
+                print("add player")
+            }
+        }
     
     
 }
