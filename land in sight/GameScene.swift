@@ -30,6 +30,7 @@ public class GameScene: SKScene, GameDelegate {
     var trunks: [SKSpriteNode] = []
     let squareWidth = 2048
     var turn:Int = 0
+    var landscape:SKNode? = SKNode()
     
     public func updateGame() {
     }
@@ -43,10 +44,7 @@ public class GameScene: SKScene, GameDelegate {
         
         self.hasMoved = true
         
-        guard (childNode(withName: "Tile Map Node")
-                as? SKTileMapNode) != nil else {
-            fatalError("Background node not loaded")
-        }
+        let landscape = childNode(withName: "Tile Map Node") as? SKTileMapNode
         
         let camera = SKCameraNode()
         camera.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -66,16 +64,6 @@ public class GameScene: SKScene, GameDelegate {
             self.addChild(player)
             print("add player")
         }
-    }
-    
-    func rollDice(){
-        var textSeq:[SKTexture] = []
-        for _ in 0...15{
-            textSeq.append(SKTexture(imageNamed: "Dice \(Int.random(in: 1...6))"))
-        }
-        let animtion = SKAction.animate(withNormalTextures: textSeq, timePerFrame: 2)
-        let rep = SKAction.repeatForever(animtion)
-        dice.run(rep)
     }
     
 }
