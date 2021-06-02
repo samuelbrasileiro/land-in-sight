@@ -10,8 +10,6 @@ import SpriteKit
 
 struct GameView: View{
     @ObservedObject public var sceneLoader = GameSceneLoader()
-
-    
     var body: some View{
         SpriteView(scene: sceneLoader.scene)
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)

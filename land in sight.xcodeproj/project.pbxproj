@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28531EEE266655E800512F76 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28531EED266655E700512F76 /* Player.swift */; };
+		28913FDE26674CCE00C2DE64 /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28913FDD26674CCE00C2DE64 /* Dice.swift */; };
 		352D82982664FFC30001357F /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 352D82972664FFC30001357F /* TileSet.sks */; };
 		352D829A2665058B0001357F /* MyScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 352D82992665058B0001357F /* MyScene.sks */; };
 		35892C0E266517E10096A4D3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35892C0D266517E00096A4D3 /* GameScene.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		28531EED266655E700512F76 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		28913FDD26674CCE00C2DE64 /* Dice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dice.swift; sourceTree = "<group>"; };
 		352D82972664FFC30001357F /* TileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSet.sks; sourceTree = "<group>"; };
 		352D82992665058B0001357F /* MyScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyScene.sks; sourceTree = "<group>"; };
 		35892C0D266517E00096A4D3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -43,12 +45,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		28531EEC266655AA00512F76 /* Charater */ = {
+		28531EEC266655AA00512F76 /* InGameObj */ = {
 			isa = PBXGroup;
 			children = (
 				28531EED266655E700512F76 /* Player.swift */,
+				28913FDD26674CCE00C2DE64 /* Dice.swift */,
 			);
-			path = Charater;
+			path = InGameObj;
 			sourceTree = "<group>";
 		};
 		3595B00A265E8ADE00FBC6A8 = {
@@ -70,7 +73,7 @@
 		3595B015265E8ADE00FBC6A8 /* land in sight */ = {
 			isa = PBXGroup;
 			children = (
-				28531EEC266655AA00512F76 /* Charater */,
+				28531EEC266655AA00512F76 /* InGameObj */,
 				3595B016265E8ADE00FBC6A8 /* land_in_sightApp.swift */,
 				3595B018265E8ADE00FBC6A8 /* StartGameView.swift */,
 				35892C0D266517E00096A4D3 /* GameScene.swift */,
@@ -167,6 +170,7 @@
 				28531EEE266655E800512F76 /* Player.swift in Sources */,
 				35892C0E266517E10096A4D3 /* GameScene.swift in Sources */,
 				3595B019265E8ADE00FBC6A8 /* StartGameView.swift in Sources */,
+				28913FDE26674CCE00C2DE64 /* Dice.swift in Sources */,
 				3595B017265E8ADE00FBC6A8 /* land_in_sightApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -25,53 +25,61 @@ public enum ZPosition: Int {
 public class GameScene: SKScene, GameDelegate {
     
     var hasMoved: Bool = false
-    var playerRect = Player()
+    var playersArr:[Player] = []
+    let dice = Dice()
     var trunks: [SKSpriteNode] = []
+    let squareWidth = 2048
+    var turn:Int = 0
     
     public func updateGame() {
     }
     
     public func gameOver() {
     }
-    
-    override public func didMove(to view: SKView) {
+    override public func didMove(to view: SKView){
         if self.hasMoved{
             return
         }
         
         self.hasMoved = true
         
-        guard let landBackground = childNode(withName: "Tile Map Node")
-                as? SKTileMapNode else {
+        guard (childNode(withName: "Tile Map Node")
+                as? SKTileMapNode) != nil else {
             fatalError("Background node not loaded")
         }
         
-        playerRect.playerInit(assetName:"pirata 2", origin:CGPoint(x: 0, y: 0))
-        self.addChild(playerRect)
         let camera = SKCameraNode()
         camera.position = CGPoint(x: frame.midX, y: frame.midY)
-        camera.setScale(77)
+        camera.setScale(85)
         self.camera = camera
         self.addChild(camera)
-        let path:[CGPoint] = [CGPoint(x: 0*1024, y: 1*1024), CGPoint(x: 0*1024, y: 2*1024),CGPoint(x: 1*1024, y: 2*1024),CGPoint(x: 1*1024, y: 3*1024)]
-        movePlayer(path: path)
-        
+        self.addChild(dice)
+        createPlayers(number: 2)
+        dice.initDice()
     }
     
-    func movePlayer(path:[CGPoint]?){
-        var actionSeqArr:[SKAction] = []
-        if let validPah = path{
-            for point in validPah{
-                let action = SKAction.move(to: point, duration: 2)
-                actionSeqArr.append(action)
-            }
-            let actionSeq = SKAction.sequence(actionSeqArr)
-            playerRect.run(actionSeq)
+    func createPlayers(number:Int){
+        let points:[CGPoint] = [CGPoint(x: -13*squareWidth, y: -7*squareWidth), CGPoint(x: -12*squareWidth, y: -7*squareWidth)]
+        for x in 0..<number{
+            let player = Player()
+            player.playerInit(assetName: "pirata \(x)", origin: points[x])
+            playersArr.append(player)
+            self.addChild(player)
+            print("add player")
         }
-        
     }
+    
+    func rollDice(){
+        var textSeq:[SKTexture] = []
+        for _ in 0...15{
+            textSeq.append(SKTexture(imageNamed: "Dice \(Int.random(in: 1...6))"))
+        }
+        let animtion = SKAction.animate(withNormalTextures: textSeq, timePerFrame: 2)
+        let rep = SKAction.repeatForever(animtion)
+        dice.run(rep)
+    }
+    
 }
-
 
 public class GameSceneLoader: ObservableObject{
     @Published public var scene: GameScene = GameScene()
@@ -85,9 +93,6 @@ public class GameSceneLoader: ObservableObject{
         guard let scene = GameScene(fileNamed: "MyScene.sks") else{
             fatalError("Did not load scene")
         }
-        //let scene = GameScene(size: CGSize(width: 800, height: 500))
-        
-        //scene.environment = environment
         scene.scaleMode = .aspectFill
         self.scene = scene
     }
