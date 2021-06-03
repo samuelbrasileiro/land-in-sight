@@ -92,9 +92,10 @@ class GameEnvironment: ObservableObject{
                 switch currentMission.consequence{
                     case .stop:
                         players[currentPlayer].isInStop = true
+                        setNewTurn()
                         turn = .waitingToDice
                 case let .move(houses):
-                    self.delegate?.startPlayerMovement(index: currentPlayer, houses: abs(houses), completion: { [self] in
+                    self.delegate?.startPlayerMovement(index: currentPlayer, houses: houses, completion: { [self] in
                         setNewTurn()
                         turn = .waitingToDice
                         
@@ -128,13 +129,13 @@ class GameEnvironment: ObservableObject{
         turn = .waitingToDice
         
         missions.append(Mission(text: "Achou uma caixa de bebidas no Mar e seus marinheiros ficaram muito felizes!", action: "Avance duas casas!", consequence: .move(houses: 2)))
-        missions.append(Mission(text: "Encontrou uma bússola.", action: "Avance 3 casas", consequence: .move(houses: 3)))
-        missions.append(Mission(text: "Uma sereia aparece no caminho e você perde  alguns tripulantes que ficam encantados.", action: "Volte 2 casas.", consequence: .move(houses: -2)))
+        missions.append(Mission(text: "Encontrou uma bússola.", action: "Avance três casas", consequence: .move(houses: 3)))
+        missions.append(Mission(text: "Uma sereia aparece no caminho e você perde  alguns tripulantes que ficam encantados.", action: "Volte duas casas.", consequence: .move(houses: -2)))
         missions.append(Mission(text: "Navio encalhado!", action: "Fique sem jogar por um turno enquanto os marinheiros fazem o reparo.", consequence: .stop))
-        missions.append(Mission(text: "O navio bateu em uma pedra e voce perde parte dos recursos para consertar.", action: "Volte 2 casas.", consequence: .move(houses: -2)))
-        missions.append(Mission(text: "Você encontra um naufrago. Ao ajudar ele, ele se diz filho de um grande lorde! Você ganha muito dinheiro para melhorar seu barco.", action: "Avance 4 casas.", consequence: .move(houses: 4)))
+        missions.append(Mission(text: "O navio bateu em uma pedra e voce perde parte dos recursos para consertar.", action: "Volte duas casas.", consequence: .move(houses: -2)))
+        missions.append(Mission(text: "Você encontra um naufrago. Ao ajudar ele, ele se diz filho de um grande lorde! Você ganha muito dinheiro para melhorar seu barco.", action: "Avance três casas.", consequence: .move(houses: 4)))
         missions.append(Mission(text: "Você encontra uma ilha e ela esta tendo uma festa. Va aproveitar.", action: "Perca a rodada.", consequence: .stop))
-        missions.append(Mission(text: "Voce entra em um cemiterio e esta com muito medo. Mas para sua surpresa, voce encontra varias moedas!", action: "Avance 2 casas.", consequence: .move(houses: 2)))
+        missions.append(Mission(text: "Voce entra em um cemiterio e esta com muito medo. Mas para sua surpresa, voce encontra varias moedas!", action: "Avance duas casas.", consequence: .move(houses: 2)))
         missions.append(Mission(text: "Sua bussola quebrou e agora vocês tem que consertar ela.", action: "Fique um turno trabalhando nesse reparo.", consequence: .stop))
         missions.append(Mission(text: "Devido a viagem exaustiva os marinheiros acabam ficando enjoados.", action: "Volte uma casa", consequence: .move(houses: -1)))
         missions.append(Mission(text: "O povo nativo rejeitou seu navio e você teve que se distanciar.", action: "Volte três casas", consequence: .move(houses: -3)))

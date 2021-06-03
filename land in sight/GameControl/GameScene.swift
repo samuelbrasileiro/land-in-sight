@@ -93,9 +93,6 @@ public class GameScene: SKScene, GameDelegate, GameEnvDelegate {
         
         reset()
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-//            self.startPlayerMovement(index: 0, houses: 5, completion: {})
-//        })
         
     }
     
@@ -103,10 +100,13 @@ public class GameScene: SKScene, GameDelegate, GameEnvDelegate {
         let zoomIn = SKAction.scale(by: 0.5, duration: 1)
         let moveCamera = SKAction.move(to: self.env.players[index].position, duration: 0.5)
         self.camera?.run(moveCamera)
+        
         self.camera?.run(zoomIn,completion: {
             self.animatePlayer(index: index)
             self.movePlayer(index, houses: houses, completion: completion)
         })
+        
+
     }
     
     func animatePlayer(index:Int){
@@ -163,40 +163,70 @@ public class GameScene: SKScene, GameDelegate, GameEnvDelegate {
             
             return
         }
-        flagIsInMovement = true
         let player = env.players[index]
         
         let score = player.score
         
-        let old = stopPoints[score]
-        let next = stopPoints[score + 1]
+        flagIsInMovement = true
         
-        env.players[index].score += 1
-        moveLine(index: index, old: old, next: next, houses: houses, completion: completion)
-        
+        if houses > 0{
+            if score == stopPoints.count{
+                return
+            }
+            let old = stopPoints[score]
+            let next = stopPoints[score + 1]
+            
+            env.players[index].score += 1
+            moveLine(index: index, old: old, next: next, houses: houses, completion: completion)
+        }
+        else{
+            if score == 0{
+                return
+            }
+            let old = stopPoints[score]
+            let next = stopPoints[score - 1]
+            
+            env.players[index].score -= 1
+            moveLine(index: index, old: old, next: next, houses: houses, completion: completion)
+        }
         
     }
     
     func moveLine(index: Int, old: Int, next: Int, houses: Int, completion: @escaping ()->Void){
-        if old >= next{
-            movePlayer(index, houses: houses - 1, completion: completion)
-            return
+        if houses > 0{
+            if old >= next{
+                movePlayer(index, houses: houses - 1, completion: completion)
+                return
+            }
+            let nextPosition = paths[old+1].position
+            let action = SKAction.move(to: nextPosition, duration: 0.5)
+            env.players[index].run(action, completion: {
+                let moveCamera = SKAction.move(to: self.env.players[
+                                                index].position, duration: 0.5)
+                self.camera?.run(moveCamera)
+                self.moveLine(index: index, old: old+1, next: next, houses: houses, completion: completion)
+            })
         }
-        let nextPosition = paths[old+1].position
-        let action = SKAction.move(to: nextPosition, duration: 0.5)
-        env.players[index].run(action, completion: {
-            let moveCamera = SKAction.move(to: self.env.players[
-                                            index].position, duration: 0.5)
-            self.camera?.run(moveCamera)
-            self.moveLine(index: index, old: old+1, next: next, houses: houses, completion: completion)
-        })
-        
+        else{
+            if old <= next{
+                movePlayer(index, houses: houses + 1, completion: completion)
+                return
+            }
+            let nextPosition = paths[old-1].position
+            let action = SKAction.move(to: nextPosition, duration: 0.5)
+            env.players[index].run(action, completion: {
+                let moveCamera = SKAction.move(to: self.env.players[
+                                                index].position, duration: 0.5)
+                self.camera?.run(moveCamera)
+                self.moveLine(index: index, old: old-1, next: next, houses: houses, completion: completion)
+            })
+        }
     }
     
     func reset(){
         for i in 0..<env.players.count{
             env.players[i].position = paths[2].position
-            env.players[i].position.x += CGFloat((i+1)*squareWidth)*0.5
+            env.players[i].position.x += CGFloat((i)*squareWidth)*0.5
             env.players[i].position.y -= CGFloat(i*100)
             
         }

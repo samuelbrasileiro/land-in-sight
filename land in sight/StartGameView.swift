@@ -30,13 +30,13 @@ struct GameView: View{
                         .frame(width: 1200, height: 1000)
                         .offset(y: -30)
                     VStack{
-                        Text("Player \(env.currentPlayer + 1)'s turn!")
-                            .font(.custom("Eight Bit Dragon", size: 90))
+                        Text("É a vez do pirata \(env.currentPlayer + 1)!")
+                            .font(.custom("Eight Bit Dragon", size: 80))
                             .foregroundColor(.black)
                             .padding()
                         
-                            Text("swipe up to roll the dice")
-                                .font(.custom("Connection II", size: 60))
+                            Text("arraste para cima para jogar o dado")
+                                .font(.custom("Connection II", size: 40))
                                 .foregroundColor(.black)
                                 
                         Button(action:{
@@ -102,13 +102,13 @@ struct StartGameView: View {
     var body: some View {
         NavigationView{
             VStack{
-                Text("Land in Sight!")
+                Text("Terra à vista!")
                     .bold()
                     .padding(.bottom, 200)
                 
                 NavigationLink(
                     destination: GameView(),
-                    isActive: $isPresentingGame){ Text("Press any key to start")}
+                    isActive: $isPresentingGame){ Text("Aperte pra começar")}
             }
             
         }
