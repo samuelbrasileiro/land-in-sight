@@ -25,7 +25,9 @@ class GameSceneLoader: ObservableObject{
             fatalError("Did not load scene")
         }
         //let scene = GameScene(size: CGSize(width: 800, height: 500))
+        environment.delegate = scene
         scene.env = environment
+        
         //scene.environment = environment
         scene.scaleMode = .aspectFill
         self.scene = scene

@@ -24,18 +24,42 @@ struct GameView: View{
             
             if(env.turn == .waitingToDice){
                 ZStack{
-                    
+                    Image("turn")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 1200, height: 1000)
+                        .offset(y: -30)
                     VStack{
                         Text("Player \(env.currentPlayer + 1)'s turn!")
                             .font(.custom("Eight Bit Dragon", size: 90))
                             .foregroundColor(.black)
                             .padding()
-                        Text("Swipe up to roll the dice")
-                            .font(.custom("Connection II", size: 60))
-                            .foregroundColor(.black)
-                            .padding(.bottom)
+                        
+                            Text("swipe up to roll the dice")
+                                .font(.custom("Connection II", size: 60))
+                                .foregroundColor(.black)
+                                
+                        Button(action:{
+                            env.setDice()
+                            env.turn = .throwingDice
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+                                env.turn = .walking
+                            }
+                        }){
+                        }.opacity(0.1)
+                        
                     }
                 }
+                
+            }
+            else if(env.turn == .throwingDice){
+                Image("dado\(env.dice)")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 500, height: 500)
+            }
+            
+            else if env.turn == .mission{
                 
             }
         }

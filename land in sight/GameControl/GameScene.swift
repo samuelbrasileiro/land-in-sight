@@ -37,7 +37,7 @@ class StopPoint{
 
 let stopPointsIndex = [2,5,7,9,11,13,16,19,23,25,28,31,33,36,38,43,45,48,52,55,57,61,64,66,68,73,77,80,83,86,91,95,99,102,105,109,111,114,117,120,123,126,130,135,141,144]
 
-public class GameScene: SKScene, GameDelegate {
+public class GameScene: SKScene, GameDelegate, GameEnvDelegate {
     
     var env: GameEnvironment!
     
@@ -93,19 +93,19 @@ public class GameScene: SKScene, GameDelegate {
         
         reset()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            self.startPlayerMovement(index: 0, houses: 5)
-        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+//            self.startPlayerMovement(index: 0, houses: 5, completion: {})
+//        })
         
     }
     
-    func startPlayerMovement(index:Int,houses:Int){
+    func startPlayerMovement(index:Int,houses:Int, completion: @escaping ()->Void){
         let zoomIn = SKAction.scale(by: 0.5, duration: 1)
         let moveCamera = SKAction.move(to: self.env.players[index].position, duration: 0.5)
         self.camera?.run(moveCamera)
         self.camera?.run(zoomIn,completion: {
             self.animatePlayer(index: index)
-            self.movePlayer(index, houses: houses)
+            self.movePlayer(index, houses: houses, completion: completion)
         })
     }
     
@@ -126,7 +126,7 @@ public class GameScene: SKScene, GameDelegate {
         actionSeq.insert(setTexture, at: 4)
         let seq = SKAction.sequence(actionSeq)
         let rep = SKAction.repeatForever(seq)
-        players[index].run(rep)
+        env.players[index].run(rep)
     }
     var flagIsInMovement: Bool = false
     
@@ -144,10 +144,10 @@ public class GameScene: SKScene, GameDelegate {
         }
     }
     
-    func movePlayer(_ index: Int, houses: Int){
+    func movePlayer(_ index: Int, houses: Int, completion: @escaping ()->Void){
         if houses == 0{
-            players[index].run(SKAction.setTexture(SKTexture(imageNamed: "pirata-\(index)/0")))
-            players[index].removeAllActions()
+            env.players[index].run(SKAction.setTexture(SKTexture(imageNamed: "pirata-\(index)/0")))
+            env.players[index].removeAllActions()
             let zoomOut = SKAction.scale(by: 1.4, duration: 1)
             self.camera?.run(zoomOut)
             let moveCenter = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 1.5)
@@ -155,9 +155,8 @@ public class GameScene: SKScene, GameDelegate {
             self.camera?.run(moveCenter, completion: {
                 self.flagIsInMovement = false
                 
-                if index == 0{
-                    self.startPlayerMovement(index: 1, houses: 5)
-                }
+                completion()
+                
             })
             
             moveToOccupyFurther(index)
@@ -173,14 +172,14 @@ public class GameScene: SKScene, GameDelegate {
         let next = stopPoints[score + 1]
         
         env.players[index].score += 1
-        moveLine(index: index, old: old, next: next, houses: houses)
+        moveLine(index: index, old: old, next: next, houses: houses, completion: completion)
         
         
     }
     
-    func moveLine(index: Int, old: Int, next: Int, houses: Int){
+    func moveLine(index: Int, old: Int, next: Int, houses: Int, completion: @escaping ()->Void){
         if old >= next{
-            movePlayer(index, houses: houses - 1)
+            movePlayer(index, houses: houses - 1, completion: completion)
             return
         }
         let nextPosition = paths[old+1].position
@@ -189,7 +188,7 @@ public class GameScene: SKScene, GameDelegate {
             let moveCamera = SKAction.move(to: self.env.players[
                                             index].position, duration: 0.5)
             self.camera?.run(moveCamera)
-            self.moveLine(index: index, old: old+1, next: next, houses: houses)
+            self.moveLine(index: index, old: old+1, next: next, houses: houses, completion: completion)
         })
         
     }

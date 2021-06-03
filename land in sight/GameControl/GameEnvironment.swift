@@ -16,25 +16,43 @@ enum TurnPhase{
     case consequence
 }
 
-
+protocol GameEnvDelegate{
+    func startPlayerMovement(index:Int,houses:Int, completion: @escaping ()->Void)
+}
 
 class GameEnvironment: ObservableObject{
     var players: [Player] = []
-    var currentPlayer = 0
-    let dice = Dice()
+    @Published var currentPlayer = 0
+    @Published var dice = 0
     
-    var turn: TurnPhase = .waitingToDice{
+    var delegate: GameEnvDelegate?
+    
+    @Published var turn: TurnPhase = .waitingToDice{
         didSet{
             switch turn {
             case .waitingToDice:
                 print("bb")
             case .throwingDice:
                 print("aa")
-            
+            case .walking:
+                self.delegate?.startPlayerMovement(index: currentPlayer, houses: dice, completion: { [self] in
+                    if currentPlayer + 1 == players.count{
+                        currentPlayer = 0
+                    }
+                    else{
+                        currentPlayer += 1
+                    }
+                    
+                    turn = .waitingToDice
+                })
             default:
                 print(oldValue)
             }
         }
+    }
+    
+    func setDice(){
+        dice = (1...6).randomElement()!
     }
     
     init(){
