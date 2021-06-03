@@ -104,8 +104,29 @@ public class GameScene: SKScene, GameDelegate {
         let moveCamera = SKAction.move(to: self.players[index].position, duration: 0.5)
         self.camera?.run(moveCamera)
         self.camera?.run(zoomIn,completion: {
+            self.animatePlayer(index: index)
             self.movePlayer(index, houses: houses)
         })
+    }
+    
+    func animatePlayer(index:Int){
+        var actionSeq:[SKAction] = []
+        for i in 1...2{
+            let setTexture = SKAction.setTexture(SKTexture(imageNamed: "pirata-\(index)/\(i)"))
+            let wait = SKAction.wait(forDuration: 0.5)
+            actionSeq.append(setTexture)
+            actionSeq.append(wait)
+        }
+        let setTexture = SKAction.setTexture(SKTexture(imageNamed: "pirata-\(index)/0"))
+        let wait = SKAction.wait(forDuration: 0.5)
+        actionSeq.insert(setTexture, at: actionSeq.count)
+        actionSeq.insert(wait, at: 2)
+        actionSeq.insert(setTexture, at: 2)
+        actionSeq.insert(wait, at: 4)
+        actionSeq.insert(setTexture, at: 4)
+        let seq = SKAction.sequence(actionSeq)
+        let rep = SKAction.repeatForever(seq)
+        players[index].run(rep)
     }
     var flagIsInMovement: Bool = false
     
@@ -125,6 +146,8 @@ public class GameScene: SKScene, GameDelegate {
     
     func movePlayer(_ index: Int, houses: Int){
         if houses == 0{
+            players[index].run(SKAction.setTexture(SKTexture(imageNamed: "pirata-\(index)/0")))
+            players[index].removeAllActions()
             let zoomOut = SKAction.scale(by: 1.4, duration: 1)
             self.camera?.run(zoomOut)
             let moveCenter = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 1.5)
@@ -184,7 +207,7 @@ public class GameScene: SKScene, GameDelegate {
         let points:[CGPoint] = [CGPoint(x: -13*squareWidth, y: -7*squareWidth), CGPoint(x: -12*squareWidth, y: -7*squareWidth)]
         for x in 0..<number{
             let player = Player()
-            player.playerInit(assetName: "pirata \(x)", origin: points[x])
+            player.playerInit(assetName: "pirata-\(x)/0", origin: points[x])
             
             players.append(player)
             
