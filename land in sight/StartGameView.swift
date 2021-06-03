@@ -14,7 +14,7 @@ struct GameView: View{
     @ObservedObject var env = GameEnvironment()
     public init(){
         sceneLoader = GameSceneLoader(environment: env)
-        
+        //env.turn = .mission
     }
     var body: some View{
         ZStack{
@@ -40,11 +40,9 @@ struct GameView: View{
                                 .foregroundColor(.black)
                                 
                         Button(action:{
-                            env.setDice()
                             env.turn = .throwingDice
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
-                                env.turn = .walking
-                            }
+                            
+                            
                         }){
                         }.opacity(0.1)
                         
@@ -58,8 +56,40 @@ struct GameView: View{
                     .scaledToFit()
                     .frame(width: 500, height: 500)
             }
-            
+            else if(env.turn == .acceptingDice){
+                Image("dado\(env.dice)")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 500, height: 500)
+            }
             else if env.turn == .mission{
+                
+                    Image("map")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(100)
+                        .overlay(
+                            VStack{
+                                Text(env.currentMission.text)
+                                    .font(.custom("Eight Bit Dragon", size: 60))
+                                    .foregroundColor(.black)
+                                    .padding()
+                                
+                                    Text(env.currentMission.action)
+                                        .font(.custom("Connection II", size: 60))
+                                        .foregroundColor(.black)
+                                        
+                                Button(action:{
+                                    env.turn = .consequence
+                                    
+                                    
+                                }){
+                                }.opacity(0.1)
+                            }
+                            .padding(200)
+                        )
+                    
+                    
                 
             }
         }

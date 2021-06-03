@@ -10,6 +10,7 @@ import SpriteKit
 
 class Player:SKSpriteNode{
     var score = 0
+    var isInStop = false
     func playerInit(assetName:String, origin:CGPoint){
         let setTexture = SKAction.setTexture(SKTexture(imageNamed: assetName), resize: true)
         self.position = origin
