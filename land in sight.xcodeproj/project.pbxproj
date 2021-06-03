@@ -10,6 +10,8 @@
 		28994DBB2668B9DC00BB0E6E /* GameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28994DBA2668B9DC00BB0E6E /* GameLoader.swift */; };
 		28F8BC7C2667BBF60069208B /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F8BC7A2667BBF60069208B /* Dice.swift */; };
 		28F8BC7D2667BBF60069208B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F8BC7B2667BBF60069208B /* Player.swift */; };
+		35038C9B26690A7D00E0945A /* EightBitDragon-anqx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35038C9A26690A7D00E0945A /* EightBitDragon-anqx.ttf */; };
+		35038C9D26690A8F00E0945A /* ConnectionIi-2wj8.otf in Resources */ = {isa = PBXBuildFile; fileRef = 35038C9C26690A8F00E0945A /* ConnectionIi-2wj8.otf */; };
 		352D82982664FFC30001357F /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 352D82972664FFC30001357F /* TileSet.sks */; };
 		352D829A2665058B0001357F /* MyScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 352D82992665058B0001357F /* MyScene.sks */; };
 		35892C0E266517E10096A4D3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35892C0D266517E00096A4D3 /* GameScene.swift */; };
@@ -17,12 +19,15 @@
 		3595B019265E8ADE00FBC6A8 /* StartGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595B018265E8ADE00FBC6A8 /* StartGameView.swift */; };
 		3595B01B265E8AE000FBC6A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3595B01A265E8AE000FBC6A8 /* Assets.xcassets */; };
 		3595B01E265E8AE000FBC6A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3595B01D265E8AE000FBC6A8 /* Preview Assets.xcassets */; };
+		35AFB8A72669052400A2A4EB /* GameEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AFB8A62669052400A2A4EB /* GameEnvironment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		28994DBA2668B9DC00BB0E6E /* GameLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoader.swift; sourceTree = "<group>"; };
 		28F8BC7A2667BBF60069208B /* Dice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dice.swift; sourceTree = "<group>"; };
 		28F8BC7B2667BBF60069208B /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		35038C9A26690A7D00E0945A /* EightBitDragon-anqx.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EightBitDragon-anqx.ttf"; sourceTree = "<group>"; };
+		35038C9C26690A8F00E0945A /* ConnectionIi-2wj8.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ConnectionIi-2wj8.otf"; sourceTree = "<group>"; };
 		350D25AA26666126008FFCA2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		352D82972664FFC30001357F /* TileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSet.sks; sourceTree = "<group>"; };
 		352D82992665058B0001357F /* MyScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyScene.sks; sourceTree = "<group>"; };
@@ -33,6 +38,7 @@
 		3595B01A265E8AE000FBC6A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3595B01D265E8AE000FBC6A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3595B01F265E8AE000FBC6A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35AFB8A62669052400A2A4EB /* GameEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnvironment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,7 @@
 			children = (
 				35892C0D266517E00096A4D3 /* GameScene.swift */,
 				28994DBA2668B9DC00BB0E6E /* GameLoader.swift */,
+				35AFB8A62669052400A2A4EB /* GameEnvironment.swift */,
 			);
 			path = GameControl;
 			sourceTree = "<group>";
@@ -97,6 +104,8 @@
 				28F8BC792667BBF60069208B /* InGameObj */,
 				3595B016265E8ADE00FBC6A8 /* land_in_sightApp.swift */,
 				3595B018265E8ADE00FBC6A8 /* StartGameView.swift */,
+				35038C9A26690A7D00E0945A /* EightBitDragon-anqx.ttf */,
+				35038C9C26690A8F00E0945A /* ConnectionIi-2wj8.otf */,
 				350D25AA26666126008FFCA2 /* MyPlayground.playground */,
 				3595B01A265E8AE000FBC6A8 /* Assets.xcassets */,
 				3595B01F265E8AE000FBC6A8 /* Info.plist */,
@@ -173,6 +182,8 @@
 				352D82982664FFC30001357F /* TileSet.sks in Resources */,
 				3595B01E265E8AE000FBC6A8 /* Preview Assets.xcassets in Resources */,
 				352D829A2665058B0001357F /* MyScene.sks in Resources */,
+				35038C9B26690A7D00E0945A /* EightBitDragon-anqx.ttf in Resources */,
+				35038C9D26690A8F00E0945A /* ConnectionIi-2wj8.otf in Resources */,
 				3595B01B265E8AE000FBC6A8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,6 +200,7 @@
 				3595B019265E8ADE00FBC6A8 /* StartGameView.swift in Sources */,
 				28F8BC7C2667BBF60069208B /* Dice.swift in Sources */,
 				28F8BC7D2667BBF60069208B /* Player.swift in Sources */,
+				35AFB8A72669052400A2A4EB /* GameEnvironment.swift in Sources */,
 				3595B017265E8ADE00FBC6A8 /* land_in_sightApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -39,10 +39,10 @@ let stopPointsIndex = [2,5,7,9,11,13,16,19,23,25,28,31,33,36,38,43,45,48,52,55,5
 
 public class GameScene: SKScene, GameDelegate {
     
+    var env: GameEnvironment!
+    
     var hasMoved: Bool = false
-    var players:[Player] = []
-    let dice = Dice()
-    var trunks: [SKSpriteNode] = []
+
     let squareWidth = 2048
     var turn:Int = 0
     
@@ -101,7 +101,7 @@ public class GameScene: SKScene, GameDelegate {
     
     func startPlayerMovement(index:Int,houses:Int){
         let zoomIn = SKAction.scale(by: 0.5, duration: 1)
-        let moveCamera = SKAction.move(to: self.players[index].position, duration: 0.5)
+        let moveCamera = SKAction.move(to: self.env.players[index].position, duration: 0.5)
         self.camera?.run(moveCamera)
         self.camera?.run(zoomIn,completion: {
             self.animatePlayer(index: index)
@@ -131,12 +131,12 @@ public class GameScene: SKScene, GameDelegate {
     var flagIsInMovement: Bool = false
     
     func moveToOccupyFurther(_ index: Int){
-        for i in 0..<players.count{
-            if i != index && players[index].position == players[i].position{
+        for i in 0..<env.players.count{
+            if i != index && env.players[index].position == env.players[i].position{
                 
                 let action = SKAction.moveBy(x: CGFloat(squareWidth/2) + 100, y: -100, duration: 0.5)
                 
-                players[index].run(action, completion: {
+                env.players[index].run(action, completion: {
                     self.moveToOccupyFurther(index)
                 })
                 
@@ -165,14 +165,14 @@ public class GameScene: SKScene, GameDelegate {
             return
         }
         flagIsInMovement = true
-        let player = players[index]
+        let player = env.players[index]
         
         let score = player.score
         
         let old = stopPoints[score]
         let next = stopPoints[score + 1]
         
-        players[index].score += 1
+        env.players[index].score += 1
         moveLine(index: index, old: old, next: next, houses: houses)
         
         
@@ -185,8 +185,8 @@ public class GameScene: SKScene, GameDelegate {
         }
         let nextPosition = paths[old+1].position
         let action = SKAction.move(to: nextPosition, duration: 0.5)
-        players[index].run(action, completion: {
-            let moveCamera = SKAction.move(to: self.players[
+        env.players[index].run(action, completion: {
+            let moveCamera = SKAction.move(to: self.env.players[
                                             index].position, duration: 0.5)
             self.camera?.run(moveCamera)
             self.moveLine(index: index, old: old+1, next: next, houses: houses)
@@ -195,10 +195,10 @@ public class GameScene: SKScene, GameDelegate {
     }
     
     func reset(){
-        for i in 0..<players.count{
-            players[i].position = paths[2].position
-            players[i].position.x += CGFloat(i*squareWidth)*0.5
-            players[i].position.y -= CGFloat(i*100)
+        for i in 0..<env.players.count{
+            env.players[i].position = paths[2].position
+            env.players[i].position.x += CGFloat(i*squareWidth)*0.5
+            env.players[i].position.y -= CGFloat(i*100)
             
         }
     }
@@ -209,7 +209,7 @@ public class GameScene: SKScene, GameDelegate {
             let player = Player()
             player.playerInit(assetName: "pirata-\(x)/0", origin: points[x])
             
-            players.append(player)
+            env.players.append(player)
             
             self.addChild(player)
             print("add player")

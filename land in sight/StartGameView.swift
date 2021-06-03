@@ -11,11 +11,35 @@ import SpriteKit
 struct GameView: View{
     @ObservedObject public var sceneLoader = GameSceneLoader()
 
-    
+    @ObservedObject var env = GameEnvironment()
+    public init(){
+        sceneLoader = GameSceneLoader(environment: env)
+        
+    }
     var body: some View{
-        SpriteView(scene: sceneLoader.scene)
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .ignoresSafeArea()
+        ZStack{
+            SpriteView(scene: sceneLoader.scene)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .ignoresSafeArea()
+            
+            if(env.turn == .waitingToDice){
+                ZStack{
+                    
+                    VStack{
+                        Text("Player \(env.currentPlayer + 1)'s turn!")
+                            .font(.custom("Eight Bit Dragon", size: 90))
+                            .foregroundColor(.black)
+                            .padding()
+                        Text("Swipe up to roll the dice")
+                            .font(.custom("Connection II", size: 60))
+                            .foregroundColor(.black)
+                            .padding(.bottom)
+                    }
+                }
+                
+            }
+        }
+        
     }
     
 }
@@ -41,6 +65,6 @@ struct StartGameView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        StartGameView()
+        GameView()
     }
 }
