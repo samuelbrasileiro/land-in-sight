@@ -89,7 +89,7 @@ public class GameScene: SKScene, GameDelegate, GameEnvDelegate {
         camera.setScale(90)
         self.camera = camera
         self.addChild(camera)
-        createPlayers(number: 2)
+        createPlayers(number: 4)
         
         reset()
         
@@ -196,17 +196,17 @@ public class GameScene: SKScene, GameDelegate, GameEnvDelegate {
     func reset(){
         for i in 0..<env.players.count{
             env.players[i].position = paths[2].position
-            env.players[i].position.x += CGFloat(i*squareWidth)*0.5
+            env.players[i].position.x += CGFloat((i+1)*squareWidth)*0.5
             env.players[i].position.y -= CGFloat(i*100)
             
         }
     }
     
     func createPlayers(number:Int){
-        let points:[CGPoint] = [CGPoint(x: -13*squareWidth, y: -7*squareWidth), CGPoint(x: -12*squareWidth, y: -7*squareWidth)]
+        //let points:[CGPoint] = [CGPoint(x: -12*squareWidth, y: -7*squareWidth), CGPoint(x: -11*squareWidth, y: -7*squareWidth),CGPoint(x: -11*squareWidth, y: -8*squareWidth),CGPoint(x: -12*squareWidth, y: -8*squareWidth)]
         for x in 0..<number{
             let player = Player()
-            player.playerInit(assetName: "pirata-\(x)/0", origin: points[x])
+            player.playerInit(assetName: "pirata-\(x)/0", origin: CGPoint(x: 0, y: 0))
             
             env.players.append(player)
             
