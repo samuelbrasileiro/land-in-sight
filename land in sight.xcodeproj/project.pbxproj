@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28994DBB2668B9DC00BB0E6E /* GameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28994DBA2668B9DC00BB0E6E /* GameLoader.swift */; };
 		28F8BC7C2667BBF60069208B /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F8BC7A2667BBF60069208B /* Dice.swift */; };
 		28F8BC7D2667BBF60069208B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F8BC7B2667BBF60069208B /* Player.swift */; };
 		352D82982664FFC30001357F /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 352D82972664FFC30001357F /* TileSet.sks */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28994DBA2668B9DC00BB0E6E /* GameLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoader.swift; sourceTree = "<group>"; };
 		28F8BC7A2667BBF60069208B /* Dice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dice.swift; sourceTree = "<group>"; };
 		28F8BC7B2667BBF60069208B /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		350D25AA26666126008FFCA2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -44,6 +46,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28994DB82668B90D00BB0E6E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				352D82992665058B0001357F /* MyScene.sks */,
+				352D82972664FFC30001357F /* TileSet.sks */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		28994DB92668B94400BB0E6E /* GameControl */ = {
+			isa = PBXGroup;
+			children = (
+				35892C0D266517E00096A4D3 /* GameScene.swift */,
+				28994DBA2668B9DC00BB0E6E /* GameLoader.swift */,
+			);
+			path = GameControl;
+			sourceTree = "<group>";
+		};
 		28F8BC792667BBF60069208B /* InGameObj */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,13 +92,12 @@
 		3595B015265E8ADE00FBC6A8 /* land in sight */ = {
 			isa = PBXGroup;
 			children = (
+				28994DB92668B94400BB0E6E /* GameControl */,
+				28994DB82668B90D00BB0E6E /* View */,
 				28F8BC792667BBF60069208B /* InGameObj */,
 				3595B016265E8ADE00FBC6A8 /* land_in_sightApp.swift */,
 				3595B018265E8ADE00FBC6A8 /* StartGameView.swift */,
 				350D25AA26666126008FFCA2 /* MyPlayground.playground */,
-				35892C0D266517E00096A4D3 /* GameScene.swift */,
-				352D82992665058B0001357F /* MyScene.sks */,
-				352D82972664FFC30001357F /* TileSet.sks */,
 				3595B01A265E8AE000FBC6A8 /* Assets.xcassets */,
 				3595B01F265E8AE000FBC6A8 /* Info.plist */,
 				3595B01C265E8AE000FBC6A8 /* Preview Content */,
@@ -165,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28994DBB2668B9DC00BB0E6E /* GameLoader.swift in Sources */,
 				35892C0E266517E10096A4D3 /* GameScene.swift in Sources */,
 				3595B019265E8ADE00FBC6A8 /* StartGameView.swift in Sources */,
 				28F8BC7C2667BBF60069208B /* Dice.swift in Sources */,

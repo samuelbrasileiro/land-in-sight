@@ -33,13 +33,12 @@ class StopPoint{
         self.index = index
     }
     
-    
 }
 
 let stopPointsIndex = [2,5,7,9,11,13,16,19,23,25,28,31,33,36,38,43,45,48,52,55,57,61,64,66,68,73,77,80,83,86,91,95,99,102,105,109,111,114,117,120,123,126,130,135,141,144]
 
 public class GameScene: SKScene, GameDelegate {
-
+    
     var hasMoved: Bool = false
     var players:[Player] = []
     let dice = Dice()
@@ -56,11 +55,9 @@ public class GameScene: SKScene, GameDelegate {
     
     var paths: [SKNode] = []
     
-    public func updateGame() {
-        
+    public func updateGame(){
     }
-    public func gameOver() {
-
+    public func gameOver(){
     }
     
     override public func didMove(to view: SKView) {
@@ -69,14 +66,14 @@ public class GameScene: SKScene, GameDelegate {
         }
         
         self.hasMoved = true
-
+        
         //stopPoints = stopPointsIndex.map{StopPoint(index: $0)}
-    
+        
         guard let landBackground = childNode(withName: "Tile Map Node")
-                                       as? SKTileMapNode else {
-          fatalError("Background node not loaded")
+                as? SKTileMapNode else {
+            fatalError("Background node not loaded")
         }
-
+        
         print(landBackground.mapSize)
         
         for i in 0..<149{
@@ -161,39 +158,16 @@ public class GameScene: SKScene, GameDelegate {
     }
     
     func createPlayers(number:Int){
-            let points:[CGPoint] = [CGPoint(x: -13*squareWidth, y: -7*squareWidth), CGPoint(x: -12*squareWidth, y: -7*squareWidth)]
-            for x in 0..<number{
-                let player = Player()
-                player.playerInit(assetName: "pirata \(x)", origin: points[x])
-                
-                players.append(player)
-                
-                self.addChild(player)
-                print("add player")
-            }
+        let points:[CGPoint] = [CGPoint(x: -13*squareWidth, y: -7*squareWidth), CGPoint(x: -12*squareWidth, y: -7*squareWidth)]
+        for x in 0..<number{
+            let player = Player()
+            player.playerInit(assetName: "pirata \(x)", origin: points[x])
+            
+            players.append(player)
+            
+            self.addChild(player)
+            print("add player")
         }
-    
-    
-}
-
-
-public class GameSceneLoader: ObservableObject{
-    @Published public var scene: GameScene = GameScene()
-//    public init(){
-//        
-//    }
-    public init(/*environment: GameEnvironment*/){
-        reset(/*environment*/)
-    }
-    public func reset(/*_ environment: GameEnvironment*/){
-        guard let scene = GameScene(fileNamed: "MyScene.sks") else{
-            fatalError("Did not load scene")
-        }
-        //let scene = GameScene(size: CGSize(width: 800, height: 500))
-        
-        //scene.environment = environment
-        scene.scaleMode = .aspectFill
-        self.scene = scene
     }
     
 }
