@@ -108,14 +108,37 @@ public class GameScene: SKScene, GameDelegate {
         })
     }
     var flagIsInMovement: Bool = false
+    
+    func moveToOccupyFurther(_ index: Int){
+        for i in 0..<players.count{
+            if i != index && players[index].position == players[i].position{
+                
+                let action = SKAction.moveBy(x: CGFloat(squareWidth/2) + 100, y: -100, duration: 0.5)
+                
+                players[index].run(action, completion: {
+                    self.moveToOccupyFurther(index)
+                })
+                
+            }
+        }
+    }
+    
     func movePlayer(_ index: Int, houses: Int){
         if houses == 0{
             let zoomOut = SKAction.scale(by: 1.4, duration: 1)
             self.camera?.run(zoomOut)
             let moveCenter = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 1.5)
             self.camera?.run(zoomOut)
-            self.camera?.run(moveCenter)
-            flagIsInMovement = false
+            self.camera?.run(moveCenter, completion: {
+                self.flagIsInMovement = false
+                
+                if index == 0{
+                    self.startPlayerMovement(index: 1, houses: 5)
+                }
+            })
+            
+            moveToOccupyFurther(index)
+            
             return
         }
         flagIsInMovement = true
