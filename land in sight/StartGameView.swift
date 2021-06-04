@@ -10,7 +10,7 @@ import SpriteKit
 
 struct GameView: View{
     @ObservedObject public var sceneLoader = GameSceneLoader()
-
+    
     @ObservedObject var env = GameEnvironment()
     public init(){
         sceneLoader = GameSceneLoader(environment: env)
@@ -35,10 +35,10 @@ struct GameView: View{
                             .foregroundColor(.black)
                             .padding()
                         
-                            Text("arraste para cima para jogar o dado")
-                                .font(.custom("Connection II", size: 40))
-                                .foregroundColor(.black)
-                                
+                        Text("arraste para cima para jogar o dado")
+                            .font(.custom("Connection II", size: 40))
+                            .foregroundColor(.black)
+                        
                         Button(action:{
                             env.turn = .throwingDice
                             
@@ -64,32 +64,32 @@ struct GameView: View{
             }
             else if env.turn == .mission{
                 
-                    Image("map")
-                        .resizable()
-                        .scaledToFit()
-                        .padding(100)
-                        .overlay(
-                            VStack{
-                                Text(env.currentMission.text)
-                                    .font(.custom("Eight Bit Dragon", size: 60))
-                                    .foregroundColor(.black)
-                                    .padding()
+                Image("map")
+                    .resizable()
+                    .scaledToFit()
+                    .padding(100)
+                    .overlay(
+                        VStack{
+                            Text(env.currentMission.text)
+                                .font(.custom("Eight Bit Dragon", size: 60))
+                                .foregroundColor(.black)
+                                .padding()
+                            
+                            Text(env.currentMission.action)
+                                .font(.custom("Connection II", size: 60))
+                                .foregroundColor(.black)
+                            
+                            Button(action:{
+                                env.turn = .consequence
                                 
-                                    Text(env.currentMission.action)
-                                        .font(.custom("Connection II", size: 60))
-                                        .foregroundColor(.black)
-                                        
-                                Button(action:{
-                                    env.turn = .consequence
-                                    
-                                    
-                                }){
-                                }.opacity(0.1)
-                            }
-                            .padding(200)
-                        )
-                    
-                    
+                                
+                            }){
+                            }.opacity(0.1)
+                        }
+                        .padding(200)
+                    )
+                
+                
                 
             }
         }
@@ -101,24 +101,38 @@ struct StartGameView: View {
     @State var isPresentingGame: Bool = false
     var body: some View {
         NavigationView{
-            VStack{
-                Text("Terra à vista!")
-                    .bold()
-                    .padding(.bottom, 200)
+            ZStack{
+                Image ("backgroundStartScreen")
+                    .resizable()
+                    .scaledToFill()
                 
                 NavigationLink(
                     destination: GameView(),
-                    isActive: $isPresentingGame){ Text("Aperte pra começar")}
+                    isActive: $isPresentingGame){
+                    ZStack{
+                        Image ("startButton")
+                            .resizable()
+                            .scaledToFit()
+                            .frame (width: 640, height: 144, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        Text("Começar!")
+                            .font(.custom("Eight Bit Dragon", size: 48))
+                            .foregroundColor(.white)
+                    }
+                    
+                }
+                .scaledToFit()
+                .frame(width: 640, height: 144, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             }
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.blue)
+        .edgesIgnoringSafeArea(.all)
+
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        StartGameView()
     }
 }
