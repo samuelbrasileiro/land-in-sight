@@ -44,7 +44,7 @@ struct GameView: View{
                             
                             
                         }){
-                        }.opacity(0.1)
+                        }.opacity(0.03)
                         
                     }
                 }
@@ -84,7 +84,7 @@ struct GameView: View{
                                 
                                 
                             }){
-                            }.opacity(0.1)
+                            }.opacity(0.03)
                         }
                         .padding(200)
                     )
@@ -113,16 +113,29 @@ struct StartGameView: View {
                         Image ("startButton")
                             .resizable()
                             .scaledToFit()
-                            .frame (width: 640, height: 144, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .frame (width: 640/1.2, height: 144/1.2, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         Text("Começar!")
-                            .font(.custom("Eight Bit Dragon", size: 48))
+                            .font(.custom("Eight Bit Dragon", size: 40))
                             .foregroundColor(.white)
                     }
                     
                 }
-                .scaledToFit()
-                .frame(width: 640, height: 144, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            }
+                .opacity(0.03)
+                .overlay(
+                    ZStack{
+                        Image ("startButton")
+                            .resizable()
+                            .scaledToFit()
+                            .frame (width: 640/1.2, height: 144/1.2, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        Text("Começar!")
+                            .font(.custom("Eight Bit Dragon", size: 40))
+                            .foregroundColor(.white)
+                    }
+                )
+                .offset(y: 150)
+                //.scaledToFit()
+                //.frame(width: 640, height: 144, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            }.scaledToFill()
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
